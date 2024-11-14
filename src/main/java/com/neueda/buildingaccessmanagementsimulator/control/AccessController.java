@@ -18,6 +18,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/api/logs")
+@CrossOrigin
 public class AccessController {
 
 
