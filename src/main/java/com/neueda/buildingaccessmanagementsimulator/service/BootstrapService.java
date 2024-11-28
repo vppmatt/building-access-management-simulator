@@ -2,12 +2,16 @@ package com.neueda.buildingaccessmanagementsimulator.service;
 
 import com.neueda.buildingaccessmanagementsimulator.data.AccessRepository;
 import com.neueda.buildingaccessmanagementsimulator.data.BuildingRepository;
+import com.neueda.buildingaccessmanagementsimulator.data.LoginRepository;
 import com.neueda.buildingaccessmanagementsimulator.data.UserRepository;
 import com.neueda.buildingaccessmanagementsimulator.model.AccessRecord;
 import com.neueda.buildingaccessmanagementsimulator.model.Building;
+import com.neueda.buildingaccessmanagementsimulator.model.Login;
 import com.neueda.buildingaccessmanagementsimulator.model.User;
+import io.jsonwebtoken.security.Password;
 import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalTime;
@@ -27,8 +31,15 @@ public class BootstrapService {
     @Autowired
     AccessRepository accessRepository;
 
+    @Autowired
+    LoginRepository loginRepository;
+
+    @Autowired
+    PasswordEncoder passwordEncoder;
+
     @PostConstruct
     public void loadData() {
+        loadLogins();
         loadUsers();
         loadBuildings();
         if (accessRepository.count() == 0) {
@@ -38,6 +49,13 @@ public class BootstrapService {
             loadAccessRecords(4);
             loadAccessRecords(5);
         }
+    }
+
+    public void loadLogins() {
+        Login login1 = new Login(null, "admin", passwordEncoder.encode("admin"), "admin");
+        Login login2 = new Login(null, "user", passwordEncoder.encode( "user"), "user");
+        loginRepository.save(login1);
+        loginRepository.save(login2);
     }
 
     public void loadUsers() {

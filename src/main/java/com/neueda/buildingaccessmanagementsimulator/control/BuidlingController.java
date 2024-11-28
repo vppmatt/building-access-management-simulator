@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/building")
+@RequestMapping({"/api/building", "/api2/building"})
 @CrossOrigin
 public class BuidlingController {
 

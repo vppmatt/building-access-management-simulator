@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/user")
+@RequestMapping({"/api/user", "/api2/user"})
 @CrossOrigin
 public class UserController {
 

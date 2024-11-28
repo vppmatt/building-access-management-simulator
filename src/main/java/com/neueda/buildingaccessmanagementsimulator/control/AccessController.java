@@ -17,7 +17,7 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/api/logs")
+@RequestMapping({"/api/logs", "/api2/logs"})
 @CrossOrigin
 public class AccessController {
 
