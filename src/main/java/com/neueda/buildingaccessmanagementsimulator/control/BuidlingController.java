@@ -4,10 +4,7 @@ package com.neueda.buildingaccessmanagementsimulator.control;
 import com.neueda.buildingaccessmanagementsimulator.data.BuildingRepository;
 import com.neueda.buildingaccessmanagementsimulator.model.Building;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -22,5 +19,16 @@ public class BuidlingController {
     @GetMapping()
     public List<Building> getAll() {
         return buildingRepository.findAll();
+    }
+
+    @PostMapping
+    public Building create(@RequestBody Building building) {
+        return buildingRepository.save(building);
+    }
+
+    @PutMapping("/{id}")
+    public Building update(@PathVariable("id") Integer id, @RequestBody Building building) {
+        building.setId(id);
+        return buildingRepository.save(building);
     }
 }
